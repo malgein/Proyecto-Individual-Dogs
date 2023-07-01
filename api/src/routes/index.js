@@ -11,7 +11,7 @@ const fetchTemperaments = require('../controllers/fetchTemperaments')
 const router = Router();
 
 router.get('/', (req,res) => {
-  res.send('El servidor de mi PI')
+  res.json({hola: 'mundo'})
 })
 
 router.get('/dogs', getAllDogs)

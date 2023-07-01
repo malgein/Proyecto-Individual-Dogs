@@ -1,0 +1,47 @@
+import axios from 'axios'
+export const ADD_DOGS = 'ADD_DOGS'
+export const ORDER_BY_NAME = 'ORDER_BY_NAME'
+export const FILTER_BY_TEMPERAMENT = 'FILTER_BY_TEMPERAMENT'
+export const FILTER_BY_ORIGIN = 'FILTER_BY_ORIGIN'
+export const ORDER_BY_WEIGHT = 'ORDER_BY_WEIGHT'
+
+export const getAllDogs = (start, end) => {
+	return async function(dispatch){
+		let response = await axios.get('http://localhost:3001/dogs')
+		// const limitedData = response.data.slice(start, end)
+		return dispatch({
+			type: ADD_DOGS,
+			payload: response.data
+			// payload: limitedData
+		})
+	}
+}
+
+export const orderByName = order => {
+	return{
+		type: ORDER_BY_NAME,
+		payload: order
+	}
+}
+
+export const orderByWeight = order => {
+	return{
+		type: ORDER_BY_WEIGHT,
+		payload: order
+	}
+}
+
+export const filterByTemperament = temperament => {
+	return {
+		type: FILTER_BY_TEMPERAMENT,
+		payload: temperament
+	}
+}
+
+export const filterByOrigin = origin => {
+	return{
+		type: FILTER_BY_ORIGIN,
+		payload: origin
+	}
+}
+

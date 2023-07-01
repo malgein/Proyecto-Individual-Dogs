@@ -1,0 +1,11 @@
+.main{
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+
+}
+
+img{
+    height: 185px;
+    width: 170px;
+}
