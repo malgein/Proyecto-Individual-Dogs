@@ -27,7 +27,7 @@ function App() {
 
   return (
     <div className={styles.App}>
-      {location!=='/' ? (<Navbar />) : (<></>)}
+      {/* {location!=='/' ? (<Navbar />) : (<></>)} */}
       <Routes>
         <Route path='/' element={<Landing />}/>
         <Route path='/home' element={<Home />}/>

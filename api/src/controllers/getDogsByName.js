@@ -14,7 +14,7 @@ const getDogsByName = async(req, res) =>{
         	},
       	},
     	});
-			console.log(dogsData.length)
+			// console.log(dogsData.length)
 		if(dogsData.length>0){
 			res.json(dogsData)
 		} else{
@@ -22,7 +22,7 @@ const getDogsByName = async(req, res) =>{
 			const dogs = response.data.filter((dog) =>
 				dog.name.toLowerCase().includes(name.toLowerCase())
 			);
-			console.log(dogs.data)
+			// console.log(dogs.data)
 			res.json(dogs);
 		} 
   } catch (error) {
