@@ -14,24 +14,27 @@ const SearchBar = ({setFoundDogs, setFound,  setInputCleared, setSearchResults})
 
   const clickSearch = async(e) => {
     e.preventDefault()
-    
-    const data = await fetch(`http://localhost:3001/dogs/name?name=${input}`)
-    const dataJson = await data.json()
-
-    console.log(dataJson)
-    // if(dataJson.length>0){
-      setFoundDogs(dataJson)
-      setFound(true)
-    //}
-    setSearchResults(input)
-    setInputCleared(e.target.value === '');
-    // setInput('')
+    if(!input){
+      alert('Debes introducir el nombre de un perro')
+    } else {
+      const data = await fetch(`http://localhost:3001/dogs/name?name=${input}`)
+      const dataJson = await data.json()
+  
+      console.log(dataJson)
+      // if(dataJson.length>0){
+        setFoundDogs(dataJson)
+        setFound(true)
+      //}
+      setSearchResults(input)
+      setInputCleared(e.target.value === '');
+      // setInput('')
+    }
   }
 
   return (
     <form className={styles.main} onSubmit={clickSearch}>
       <input type='text' placeholder='Raza de perro...' onChange={handleChange} value={input}/> 
-      <button type='submit'>Search</button>
+      <button type='submit' disabled={input.length===0}>Search</button>
     </form>
   )
 }
