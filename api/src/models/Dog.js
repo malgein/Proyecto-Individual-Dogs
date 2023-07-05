@@ -12,15 +12,15 @@ module.exports = (sequelize) => {
       // defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false,
-      unique: true
+      unique: true,
     },
     Imagen:{
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
 			allowNull: false
     },
     Nombre: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     Altura:{
       type: DataTypes.STRING,
