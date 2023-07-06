@@ -2,35 +2,31 @@
 import React,{useState} from 'react'
 //Components
 import Navbar from '../../Navbar/Navbar'
+import { validations } from './validations'
 //Estilos
 import styles from './Form.module.css'
 
 const Form = () => {
 
-  
-
-	// const [weightAndHeight, setWeightAndHeight] = useState({
-	// 	minWeight: '',
-	// 	maxWeight: '',
-	// 	minHeight: '',
-	// 	maxHeight: ''
-	// })
-
+	//Estados locales
 	const [newDog, setNewDog] = useState({
-		// Imagen: '',
-		// Nombre: '',
-		// Altura: '',
-		// Peso : '',
-		// Años_de_vida: ''
-		//temperaments: []
 		image: '',
 		name: '',
 		minHeight: '',
 		maxHeight: '',
 		minWeight: '',
 		maxWeight: '',
-		yearsOfLife: '',
+		yearsOfLife: ''
+	})
 
+	const [errors, setErrors] = useState({
+		image: '',
+		name: '',
+		maxHeight:'',
+		minHeight: '',
+		maxWeight: '',
+		minWeight: '',
+		yearsOfLife: ''
 	})
 
 	// const handleTemperamentChange = (e) => {
@@ -47,19 +43,17 @@ const Form = () => {
   // };
 
 	const handleChange = e => {
-		// setNewDog({ ...newDog, Peso: `${weightAndHeight.minWeight} - ${weightAndHeight.maxWeight}`, Altura: `${weightAndHeight.minHeight} - ${weightAndHeight.maxHeight}`, [e.target.name]: e.target.value  })
+		setErrors(validations({...newDog, [e.target.name]: e.target.value}))
 		setNewDog({...newDog, [e.target.name]: e.target.value })
+
+		console.log(newDog)
+		console.log(errors)
 	}
 
 	// const handleTemperamentChange = (e) => {
   //   const temperamentSelected = Array.from(e.target.selectedOptions, (option) => option.value);
   //   setNewDog({ ...newDog, temperaments: temperamentSelected });
   // };
-
-	// const handleWeightAndHeight = e => {
-	// 	setWeightAndHeight({...weightAndHeight, [e.target.name]: e.target.value})
-		//console.log(weightAndHeight)
-	//}
 
 	const handleSubmit = async(e) => {
 		e.preventDefault();
@@ -71,33 +65,36 @@ const Form = () => {
 			Años_de_vida: newDog.yearsOfLife
 		}
 		
-		// setNewDog({...newDog, Peso: `${weightAndHeight.minWeight} - ${weightAndHeight.maxWeight}`, Altura: `${weightAndHeight.minHeight} - ${weightAndHeight.maxHeight}`})
 		console.log(dataDog)
     try {
-      const response = await fetch('http://localhost:3001/dogs', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataDog),
-      });
+			if(!errors.image && !errors.name && !errors.minHeight && !errors.maxHeight && !errors.minWeight && !errors.maxWeight && !errors.yearsOfLife){
+				const response = await fetch('http://localhost:3001/dogs', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(dataDog),
+      	});
 
-      if (response.ok) {
-        console.log('Perro creado exitosamente');
-				alert('Perro creado exitosamente');
-        setNewDog({
-          image: '',
-					name: '',
-					minHeight: '',
-					maxHeight: '',
-					minWeight: '',
-					maxWeight: '',
-					yearsOfLife: '',
-        });
-      } else {
-        console.error('Error al crear el perro');
-				alert('Error al crear el perro')
-      }
+      	if (response.ok) {
+					console.log('Perro creado exitosamente');
+					alert('Perro creado exitosamente');
+					setNewDog({
+						image: '',
+						name: '',
+						minHeight: '',
+						maxHeight: '',
+						minWeight: '',
+						maxWeight: '',
+						yearsOfLife: ''
+        	});
+      	} else {
+					console.error('Error al crear el perro');
+					alert('Error al crear el perro')
+      	}
+			}	else{
+				alert('Debes solucionar los errores antes de crear tu perro')
+			}
     } catch (error) {
       console.error('Error en la solicitud:', error.message);
 			alert('Error en la solicitud:', error.message)
@@ -111,22 +108,27 @@ const Form = () => {
         <h1>Form</h1>
         <label>Nombre del perro</label>
         <input name='name' type='text' value={newDog.name} onChange={handleChange}/>
+				{errors.name && <p>{errors.name}</p>}
 				<label>Imagen del perro</label>
 				<input type='text' name='image' value={newDog.image} onChange={handleChange}/>
+				{errors.image && <p>{errors.image}</p>}
         <label>Altura del perro</label>
-				{/* <input type='text' name='Altura' value={newDog.Altura} onChange={handleChange}/> */}
         <h6>Altura maxima</h6>
-        <input type='text' name='maxHeight' value={newDog.maxHeight}  onChange={handleChange}/>
+        <input type='number' name='maxHeight' value={newDog.maxHeight}  onChange={handleChange}/>
+				{errors.maxHeight && <p>{errors.maxHeight}</p>}
         <h6>Altura minima</h6>
-        <input type='text' value={newDog.minHeight} name='minHeight' onChange={handleChange}/>
+        <input type='number' value={newDog.minHeight} name='minHeight' onChange={handleChange}/>
+				{errors.minHeight && <p>{errors.minHeight}</p>}
 				<label>Peso del perro</label>	
-				{/* <input type='text' name='Peso' value={newDog.Peso} onChange={handleChange}/> */}
         <label>Peso maximo</label>
-        <input type='text' name='maxWeight' value={newDog.maxWeight} onChange={handleChange}/>
+        <input type='number' name='maxWeight' value={newDog.maxWeight} onChange={handleChange}/>
+				{errors.maxWeight && <p>{errors.maxWeight}</p>}
         <label>Peso minimo</label>
-        <input type='text'  name='minWeight' value={newDog.minWeight} onChange={handleChange}/>
+        <input type='number'  name='minWeight' value={newDog.minWeight} onChange={handleChange}/>
+				{errors.minWeight && <p>{errors.minWeight}</p>}
         <label>Años de vida</label>
-        <input type='text' value={newDog.yearsOfLife} name='yearsOfLife' onChange={handleChange}/>
+        <input type='number' value={newDog.yearsOfLife} name='yearsOfLife' onChange={handleChange}/>
+				{errors.yearsOfLife && <p>{errors.yearsOfLife}</p>}
         {/* <label>Temperamentos</label> */}
         {/* <select multiple
           id="temperaments"

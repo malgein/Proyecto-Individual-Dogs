@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
       // type: DataTypes.UUID,
       type: DataTypes.INTEGER,
       autoIncrement: true,
-      //No me funcione con UUID como id
+      //No me funcione con UUID como id,
       // defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false,
