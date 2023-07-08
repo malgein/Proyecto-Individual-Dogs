@@ -62,7 +62,7 @@ const Form = () => {
 			Nombre: newDog.name,
 			Altura: `${newDog.minHeight} - ${newDog.maxHeight}`,
 			Peso: `${newDog.minWeight} - ${newDog.maxWeight}`,
-			Años_de_vida: newDog.yearsOfLife
+			Años_de_vida: newDog.yearsOfLife,
 		}
 		
 		console.log(dataDog)

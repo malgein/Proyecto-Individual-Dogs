@@ -1,7 +1,7 @@
 const {Dog} = require('../db')
 
 const createDog = async (req, res) => {
-  const { Imagen, Nombre, Altura, Peso, Años_de_vida } = req.body;
+  const { Imagen, Nombre, Altura, Peso, Años_de_vida} = req.body;
 
   try {
 

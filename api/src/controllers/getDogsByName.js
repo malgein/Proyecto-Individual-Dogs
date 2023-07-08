@@ -15,16 +15,13 @@ const getDogsByName = async(req, res) =>{
       	},
     	});
 			// console.log(dogsData.length)
-		if(dogsData.length>0){
-			res.json(dogsData)
-		} else{
 			const response = await axios.get('https://api.thedogapi.com/v1/breeds');
 			const dogs = response.data.filter((dog) =>
 				dog.name.toLowerCase().includes(name.toLowerCase())
 			);
 			// console.log(dogs.data)
-			res.json(dogs);
-		} 
+			const allDogs = [...dogsData, ...dogs]
+			res.json(allDogs); 
   } catch (error) {
     res.status(500).send(error.message);
   }

@@ -35,7 +35,8 @@ const Home = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
 
   const endIndex = startIndex + itemsPerPage
-  const currentDogs = allDogs.slice(startIndex, endIndex);
+  const apiDogs = allDogs.slice(startIndex, endIndex);
+  // const myDogs = allDogs.filter(dog => typeof dog.ID === 'string')
 
   useEffect(() => {
     dispatch(getAllDogs())
@@ -51,12 +52,12 @@ const Home = () => {
 
   const goToPreviousPage = () => {
     setCurrentPage((prevPage) => prevPage - 1);
-    console.log(currentDogs)
+    console.log(apiDogs)
   };
 
   const goToNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
-    console.log(currentDogs)
+    console.log(apiDogs)
   };
 
   return (
@@ -66,9 +67,13 @@ const Home = () => {
       {!found ? 
         ( 
         <div key={crypto.randomUUID()}>
-          {currentDogs.map((dog) => {
-           return <Card key={dog.id} name={dog.name} image={dog.image} weight={dog.weight} temperament={dog.temperament} id={dog.id}/>
+          {apiDogs.map((dog) => {
+           return <Card key={dog.id || dog.ID} name={dog.name || dog.Nombre} image={dog.image || dog.Imagen} weight={dog.weight || dog.Peso} temperament={dog.temperament} id={dog.id || dog.ID}/>
           })}
+          {/* {myDogs?.map(dog => {
+           return <Card key={dog.ID} name={dog.Nombre} image={dog.Imagen} weight={dog.Peso} temperament={''} id={dog.ID}/>
+          })} */}
+          {/* {console.log(myDogs)} */}
           <button
           onClick={goToPreviousPage}
           disabled={currentPage === 1}
@@ -85,17 +90,24 @@ const Home = () => {
         </div>
         ):
         (
-          <div>
+        <div>
           {
+            //console.log(foundDogs)
             foundDogs.length===0 ? (<h2>No se encontraron resultados para {searchResults}</h2>) :
-            (foundDogs.map(dog => {
-              return (
-                <div  key={crypto.randomUUID()}>
-                  <h2>Resultados de {searchResults}</h2>
-                  <Card key={dog.id} name={dog.name} image={dog.image} weight={dog.weight} temperament={dog.temperament} id={dog.id}/>
-                </div>
-               )
-            }))
+            (
+              <div>
+                <h2>Se muestran resultados de {searchResults}</h2>
+                {
+                  foundDogs.map(dog => {
+                    return (
+                      <div  key={crypto.randomUUID()}>
+                        <Card key={dog.id || dog.ID} name={dog.name || dog.Nombre} image={dog.image || dog.Imagen} weight={dog.weight || dog.Peso} temperament={dog.temperament} id={dog.id || dog.ID}/>
+                      </div>
+                     )
+                  })
+                }
+              </div>
+            )
           }
         </div>
         )} 
