@@ -1,14 +1,21 @@
 //Dependencias
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+//Redux
+import {getTemperaments} from '../../../redux/actions'
 //Components
 import Navbar from '../../Navbar/Navbar'
-import { validations } from './validations'
+import { validations, validationTemperament} from './validations'
 //Estilos
 import styles from './Form.module.css'
 
 const Form = () => {
 
-	//Estados locales
+	//*Estados globales
+	const dispatch = useDispatch()
+
+	const allTemperaments = useSelector((state) => state.allTemperaments)
+	//*Estados locales
 	const [newDog, setNewDog] = useState({
 		image: '',
 		name: '',
@@ -29,45 +36,82 @@ const Form = () => {
 		yearsOfLife: ''
 	})
 
-	// const handleTemperamentChange = (e) => {
-  //   const { value, checked } = e.target;
-  //   let updatedTemperaments;
+	const [selectedTemperaments, setSelectedTemperaments] = useState([])
 
-  //   if (checked) {
-  //     updatedTemperaments = [...newDog.temperaments, value];
-  //   } else {
-  //     updatedTemperaments = newDog.temperaments.filter((temperament) => temperament !== value);
-  //   }
+	const [errorsTemperament, setErrorsTemperament] = useState('')
 
-  //   setNewDog({ ...newDog, temperaments: updatedTemperaments });
-  // };
+	// let checkboxes = []
+
+	// const createTemperaments = async() => {
+	// 	const response = await axios.get('http://localhost:3001/temperaments')
+
+	// 	const data = response.data
+	// 	checkboxes = [...data]
+		
+	// }
+	// console.log(checkboxes)
+	//*Creacion de todos los temperamentos disponibles cons sus repectivos ID
+	useEffect(() => {
+		// createTemperaments()
+		dispatch(getTemperaments())
+	},[])
+	//*Manejador de temperamentos: obtiene los ids de los temperamentos a los cuales se asociara el perro recien creado y los guarda en un estado
+	const handleTemperamentChange = (e) => {
+		const temperamentId = e.target.value
+		const isChecked = e.target.checked
+		
+
+		if(isChecked){
+			setSelectedTemperaments([...selectedTemperaments, temperamentId])
+		}	else {
+			const updateTemperaments = selectedTemperaments.filter(
+				(id) => id !== temperamentId
+			)
+			setSelectedTemperaments(updateTemperaments)
+		}
+		setErrorsTemperament(validationTemperament(e.target.value))
+		console.log(errorsTemperament)
+		//console.log(selectedTemperaments)
+    // const { value, checked } = e.target;
+    // let updatedTemperaments;
+
+    // if (checked) {
+    //   updatedTemperaments = [...newDog.temperaments, value];
+    // } else {
+    //   updatedTemperaments = newDog.temperaments.filter((temperament) => temperament !== value);
+    // }
+
+    // setNewDog({ ...newDog, temperaments: updatedTemperaments });
+  };
 
 	const handleChange = e => {
 		setErrors(validations({...newDog, [e.target.name]: e.target.value}))
 		setNewDog({...newDog, [e.target.name]: e.target.value })
 
-		console.log(newDog)
-		console.log(errors)
+		//console.log(newDog)
+		//console.log(errors)
 	}
 
 	// const handleTemperamentChange = (e) => {
   //   const temperamentSelected = Array.from(e.target.selectedOptions, (option) => option.value);
   //   setNewDog({ ...newDog, temperaments: temperamentSelected });
   // };
-
+	//Funcion que crea el perro en el modelo dogs tomando como informacion para crearlo lo introducido en los inputs y los ids de lostemperamentos a los cuales se relacionara en la base de datos
 	const handleSubmit = async(e) => {
 		e.preventDefault();
+		console.log(selectedTemperaments)
 		let dataDog = {
 			Imagen: newDog.image,
 			Nombre: newDog.name,
 			Altura: `${newDog.minHeight} - ${newDog.maxHeight}`,
 			Peso: `${newDog.minWeight} - ${newDog.maxWeight}`,
 			Años_de_vida: newDog.yearsOfLife,
+			temperamentoId: selectedTemperaments
 		}
 		
 		console.log(dataDog)
     try {
-			if(!errors.image && !errors.name && !errors.minHeight && !errors.maxHeight && !errors.minWeight && !errors.maxWeight && !errors.yearsOfLife){
+			if(!errors.image && !errors.name && !errors.minHeight && !errors.maxHeight && !errors.minWeight && !errors.maxWeight && !errors.yearsOfLife && dataDog.temperamentoId.length>0){
 				const response = await fetch('http://localhost:3001/dogs', {
 					method: 'POST',
 					headers: {
@@ -129,6 +173,23 @@ const Form = () => {
         <label>Años de vida</label>
         <input type='number' value={newDog.yearsOfLife} name='yearsOfLife' onChange={handleChange}/>
 				{errors.yearsOfLife && <p>{errors.yearsOfLife}</p>}
+				{/* {console.log(allTemperaments)} */}
+				{errorsTemperament && <p>{errorsTemperament}</p>}
+				{allTemperaments?.map(temperament => {
+					return(
+					<div key={temperament.ID}>
+						<input
+							type="checkbox"
+							id={temperament.ID}
+							name={temperament.Nombre}
+							value={temperament.ID}
+							onChange={handleTemperamentChange}
+							//checked={newDog.temperaments.includes('Playful')}
+						/>
+						<label htmlFor={temperament.Nombre}>{temperament.Nombre}</label>
+				 </div>
+					)
+				})}
         {/* <label>Temperamentos</label> */}
         {/* <select multiple
           id="temperaments"

@@ -148,3 +148,12 @@ export const validations = (input) => {
 
   return errors;
 };
+
+export const validationTemperament = (temperament) => {
+  let errors = ''
+
+  if(temperament.length<1){
+    errors = 'Debes selecionar al menos 1 temperamento'
+  }
+  return errors
+}

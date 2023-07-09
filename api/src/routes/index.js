@@ -20,6 +20,7 @@ router.get('/dogs/name?',getDogsByName)
 router.get('/dogs/:idRaza', getDogById)
 router.get('/temperaments', fetchTemperaments)
 
+
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
