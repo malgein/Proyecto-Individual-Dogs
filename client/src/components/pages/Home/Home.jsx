@@ -1,6 +1,5 @@
 //Dependencias
 import React, {useState, useEffect} from 'react'
-// import axios from 'axios'
 import {useDispatch, useSelector} from 'react-redux'
 //Components
 // import Cards from '../../Cards/Cards'
@@ -68,7 +67,7 @@ const Home = () => {
         ( 
         <div key={crypto.randomUUID()}>
           {apiDogs.map((dog) => {
-           return <Card key={dog.id || dog.ID} name={dog.name || dog.Nombre} image={dog.image || dog.Imagen} weight={dog.weight || dog.Peso} temperament={dog.temperament} id={dog.id || dog.ID}/>
+           return <Card key={dog.id || dog.ID} name={dog.name || dog.Nombre} image={dog.image || dog.Imagen} weight={dog.weight || dog.Peso} temperament={dog.temperament || dog.Temperamentos} id={dog.id || dog.ID}/>
           })}
           {/* {myDogs?.map(dog => {
            return <Card key={dog.ID} name={dog.Nombre} image={dog.Imagen} weight={dog.Peso} temperament={''} id={dog.ID}/>

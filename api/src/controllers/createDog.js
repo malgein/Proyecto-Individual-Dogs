@@ -1,17 +1,18 @@
 const {Dog, dogTemperament} = require('../db')
 
 const createDog = async (req, res) => {
-  const { Imagen, Nombre, Altura, Peso, Años_de_vida, temperamentoId} = req.body;
+  const { Imagen, Nombre, Altura, Peso, Años_de_vida, Temperamentos, temperamentoId} = req.body;
 
   try {
 
-    if(Imagen && Nombre && Altura && Peso && Años_de_vida && temperamentoId){
+    if(Imagen && Nombre && Altura && Peso && Años_de_vida && Temperamentos, temperamentoId){
       const dog = await Dog.create({
         Imagen,
         Nombre,
         Altura,
         Peso,
         Años_de_vida,
+        Temperamentos,
       });
       
       // await dogTemperament.create({

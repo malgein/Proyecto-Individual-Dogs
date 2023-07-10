@@ -6,9 +6,6 @@ module.exports = (sequelize) => {
   sequelize.define('Dog', {
     ID:{
       type: DataTypes.UUID,
-      // type: DataTypes.INTEGER,
-      // autoIncrement: true,
-      //No me funcione con UUID como id,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: false,
@@ -33,6 +30,10 @@ module.exports = (sequelize) => {
     Años_de_vida:{
       type: DataTypes.STRING,
 			allowNull: false
+    },
+    Temperamentos:{
+      type: DataTypes.STRING,
+      allowNull: false
     }
 
   });

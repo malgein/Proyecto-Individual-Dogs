@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {getTemperaments} from '../../../redux/actions'
 //Components
 import Navbar from '../../Navbar/Navbar'
-import { validations, validationTemperament} from './validations'
+import { validations} from './validations'
 //Estilos
 import styles from './Form.module.css'
 
@@ -38,8 +38,6 @@ const Form = () => {
 
 	const [selectedTemperaments, setSelectedTemperaments] = useState([])
 
-	const [errorsTemperament, setErrorsTemperament] = useState('')
-
 	// let checkboxes = []
 
 	// const createTemperaments = async() => {
@@ -56,21 +54,41 @@ const Form = () => {
 		dispatch(getTemperaments())
 	},[])
 	//*Manejador de temperamentos: obtiene los ids de los temperamentos a los cuales se asociara el perro recien creado y los guarda en un estado
-	const handleTemperamentChange = (e) => {
-		const temperamentId = e.target.value
-		const isChecked = e.target.checked
-		
+	const handleTemperamentChange = (event) => {
 
-		if(isChecked){
-			setSelectedTemperaments([...selectedTemperaments, temperamentId])
-		}	else {
-			const updateTemperaments = selectedTemperaments.filter(
-				(id) => id !== temperamentId
-			)
-			setSelectedTemperaments(updateTemperaments)
-		}
-		setErrorsTemperament(validationTemperament(e.target.value))
-		console.log(errorsTemperament)
+		const { value, checked } = event.target;
+		//console.log(value)
+    if (checked) {
+      // Agregar el temperamento al estado
+      const [name, id] = value.split('_');
+      setSelectedTemperaments([...selectedTemperaments, { name, id }]);
+    } else {
+      // Eliminar el temperamento del estado
+			const [name, id] = value.split('_')
+      const updatedTemperamentos = selectedTemperaments.filter(
+        (temperamento) => temperamento.name !== name && temperamento.id !==id
+      );
+      setSelectedTemperaments(updatedTemperamentos);
+    }
+
+		//console.log(selectedTemperaments)
+
+		// const temperament = e.target.value
+		// const isChecked = e.target.checked
+		
+		// console.log(temperament)
+		// if(isChecked){
+		// 	setSelectedTemperaments({...selectedTemperaments, ID: temperament[0], Nombre: temperament[1]})
+		// }	else {
+		// 	const updateTemperaments = selectedTemperaments.filter(
+		// 		(elem) => elem !== temperament[0] || elem!== temperament[1]
+		// 	)
+		// 	setSelectedTemperaments(updateTemperaments)
+		// }
+
+		// console.log(selectedTemperaments)
+		// setErrorsTemperament(validationTemperament(selectedTemperaments, isChecked))
+		// console.log(errorsTemperament)
 		//console.log(selectedTemperaments)
     // const { value, checked } = e.target;
     // let updatedTemperaments;
@@ -100,18 +118,23 @@ const Form = () => {
 	const handleSubmit = async(e) => {
 		e.preventDefault();
 		console.log(selectedTemperaments)
+
+		const temperaments = selectedTemperaments.map(temperament => temperament.name).join(', ')
+
+		const idTemperaments = selectedTemperaments.map(temperamentsId => temperamentsId.id)
+
 		let dataDog = {
 			Imagen: newDog.image,
 			Nombre: newDog.name,
 			Altura: `${newDog.minHeight} - ${newDog.maxHeight}`,
 			Peso: `${newDog.minWeight} - ${newDog.maxWeight}`,
 			Años_de_vida: newDog.yearsOfLife,
-			temperamentoId: selectedTemperaments
+			Temperamentos: temperaments,
+			temperamentoId: idTemperaments
 		}
 		
-		console.log(dataDog)
     try {
-			if(!errors.image && !errors.name && !errors.minHeight && !errors.maxHeight && !errors.minWeight && !errors.maxWeight && !errors.yearsOfLife && dataDog.temperamentoId.length>0){
+			if(!errors.image && !errors.name && !errors.minHeight && !errors.maxHeight && !errors.minWeight && !errors.maxWeight && !errors.yearsOfLife && selectedTemperaments.length>0){
 				const response = await fetch('http://localhost:3001/dogs', {
 					method: 'POST',
 					headers: {
@@ -132,6 +155,7 @@ const Form = () => {
 						maxWeight: '',
 						yearsOfLife: ''
         	});
+					setSelectedTemperaments([])
       	} else {
 					console.error('Error al crear el perro');
 					alert('Error al crear el perro')
@@ -143,6 +167,7 @@ const Form = () => {
       console.error('Error en la solicitud:', error.message);
 			alert('Error en la solicitud:', error.message)
     }
+		console.log(dataDog)
 	}
 
   return (
@@ -153,7 +178,7 @@ const Form = () => {
         <label>Nombre del perro</label>
         <input name='name' type='text' value={newDog.name} onChange={handleChange}/>
 				{errors.name && <p>{errors.name}</p>}
-				<label>Imagen del perro</label>
+				<label>Url de la imagen</label>
 				<input type='text' name='image' value={newDog.image} onChange={handleChange}/>
 				{errors.image && <p>{errors.image}</p>}
         <label>Altura del perro</label>
@@ -174,7 +199,7 @@ const Form = () => {
         <input type='number' value={newDog.yearsOfLife} name='yearsOfLife' onChange={handleChange}/>
 				{errors.yearsOfLife && <p>{errors.yearsOfLife}</p>}
 				{/* {console.log(allTemperaments)} */}
-				{errorsTemperament && <p>{errorsTemperament}</p>}
+				{selectedTemperaments.length===0 && <p>Debes selecionar al menos 1 temperamento</p>}
 				{allTemperaments?.map(temperament => {
 					return(
 					<div key={temperament.ID}>
@@ -182,7 +207,7 @@ const Form = () => {
 							type="checkbox"
 							id={temperament.ID}
 							name={temperament.Nombre}
-							value={temperament.ID}
+							value={`${temperament.Nombre}_${temperament.ID}`}
 							onChange={handleTemperamentChange}
 							//checked={newDog.temperaments.includes('Playful')}
 						/>
