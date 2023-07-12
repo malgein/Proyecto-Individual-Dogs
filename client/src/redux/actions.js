@@ -1,10 +1,10 @@
 import axios from 'axios'
 export const ADD_DOGS = 'ADD_DOGS'
+export const ADD_TEMPERAMENTS = 'ADD_TEMPERAMENTS'
 export const ORDER_BY_NAME = 'ORDER_BY_NAME'
 export const FILTER_BY_TEMPERAMENT = 'FILTER_BY_TEMPERAMENT'
 export const FILTER_BY_ORIGIN = 'FILTER_BY_ORIGIN'
 export const ORDER_BY_WEIGHT = 'ORDER_BY_WEIGHT'
-export const ADD_TEMPERAMENTS = 'ADD_TEMPERAMENTS'
 
 export const getAllDogs = () => {
 	return async function(dispatch){
@@ -35,6 +35,13 @@ export const orderByName = order => {
 	}
 }
 
+export const filterByTemperament = temperament => {
+	return {
+		type: FILTER_BY_TEMPERAMENT,
+		payload: temperament
+	}
+}
+
 export const orderByWeight = order => {
 	return{
 		type: ORDER_BY_WEIGHT,
@@ -42,12 +49,6 @@ export const orderByWeight = order => {
 	}
 }
 
-export const filterByTemperament = temperament => {
-	return {
-		type: FILTER_BY_TEMPERAMENT,
-		payload: temperament
-	}
-}
 
 export const filterByOrigin = origin => {
 	return{
