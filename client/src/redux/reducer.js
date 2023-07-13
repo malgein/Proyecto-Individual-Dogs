@@ -28,15 +28,49 @@ const rootReducer = (state = initialState, {type, payload}) => {
 				return{
 					...state, dogsFiltered: classifiedDogs
 				}
-			case ORDER_BY_WEIGHT:
-				const dogsSortedByWeight = [...state.allDogs].sort((a, b) => {
 
-				})
+			case FILTER_BY_ORIGIN: 
+				
+				const originDogs = [...state.allDogs].filter(elem => typeof elem.ID === payload || typeof elem.id === payload)
 				return{
-					...state
+					...state, dogsFiltered: originDogs
+				}
+			case ORDER_BY_WEIGHT:
+					let weightResult = []
+					if(payload === 'ascendente'){
+						const ascendingWeight = [...state.allDogs].sort((a,b) => {
+							const weightA = parseInt(a.weight?.imperial.split(' - ')[0])
+							const weightB = parseInt(b.weight?.imperial.split(' - ')[0])
+							return weightA - weightB
+						}) 
+						weightResult = [...ascendingWeight]
+					}	else if(payload=== 'descendente'){
+						const descendingWeight = [...state.allDogs].sort((a,b) => {
+							const weightA = parseInt(a.weight?.imperial.split(' - ')[1])
+							const weightB = parseInt(b.weight?.imperial.split(' - ')[1])
+							return weightB - weightA
+						}) 
+						weightResult = [...descendingWeight]
+					} else if (payload === 'defecto') {
+						weightResult = []
+					}
+				return{
+					...state, dogsFiltered: weightResult
 				}
 			case ORDER_BY_NAME:
-				
+				let nameResult = []
+				if(payload === 'ascendente'){
+					const ascending = [...state.allDogs].sort((a,b) => a.name?.localeCompare(b.name))
+					nameResult =[...ascending]
+				}	else if(payload=== 'descendente'){
+					const descending = [...state.allDogs].sort((a,b) => b.name?.localeCompare(a.name))
+					nameResult= [...descending]
+				} else if(payload==='defecto'){
+					nameResult = []
+				}
+				return{
+					...state, dogsFiltered: nameResult
+				}
 			default: return {...state}
     }
 }

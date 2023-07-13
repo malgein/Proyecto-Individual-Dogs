@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import Card from '../../Card/Card'
 import Navbar from '../../Navbar/Navbar'
 //Redux
-import {getAllDogs, getTemperaments, filterByTemperament} from '../../../redux/actions.js'
+import {getAllDogs, getTemperaments, filterByTemperament, filterByOrigin, orderByName, orderByWeight} from '../../../redux/actions.js'
 //Estilos
 import styles from './Home.module.css'
 
@@ -72,22 +72,31 @@ const Home = () => {
     console.log(apiDogs)
   };
 
-  // const filterByTemp = temperament =>{
-  //   const classifiedDogs = [...allDogs]
-  //   //console.log(classifiedDogs)
-  //   const result = classifiedDogs.filter(elem => elem.temperament?.split(', ').includes(temperament))
-  //   console.log(result)
-  //   // setAux(!aux)
-  // }
-
-  const handleFilterTemp =  (e) => {
+  const handleFilterTemp =  e => {
     // console.log(e.target.value)
     // console.log(allDogs)
     // setAux(!aux)
     // dispatch(filterByTemperament(e.target.value))
     // classifiedDogs = [...allDogs]
     dispatch(filterByTemperament(e.target.value))
+    //console.log(dogsFiltered)
+  }
+
+  const handleOrigin = e => {
+    // console.log(e.target.value)
+    dispatch(filterByOrigin(e.target.value))
+    // console.log(dogsFiltered)
+  }
+
+  const handleWords = e => {
+    dispatch(orderByName(e.target.value))
     console.log(dogsFiltered)
+  }
+
+  const handleWeight = e => {
+    // console.log(e.target.value)
+    dispatch(orderByWeight(e.target.value))
+    // console.log(dogsFiltered)
   }
 
   return (
@@ -96,16 +105,34 @@ const Home = () => {
       <h1>Dogs List</h1>
       {
         !found && (
-          <div>
-             <h5>Filtrar por Temperamento</h5>
+          <div className={styles.filters}>
+            <h5>Filtrar por Temperamento</h5>
             <select multiple onChange={handleFilterTemp}>
-            <option value='Todos'>Todos</option>
-            {allTemperaments?.map(temperaments =>  <option value={temperaments.Nombre} key={temperaments.ID}>{temperaments.Nombre}</option>)}
+              <option value='Todos'>Todos</option>
+              {allTemperaments?.map(temperaments =>  <option value={temperaments.Nombre} key={temperaments.ID}>{temperaments.Nombre}</option>)}
+            </select>
+            <h5>Filtrar por Origen</h5>
+            <select multiple onChange={handleOrigin}>
+              <option value='object'>Todos</option>
+              <option value='string'>Mis perros</option>
+              <option value='number'>Perros de la API</option>
+            </select>
+            <h5>Ordenar alfabeticamente</h5>
+            <select multiple onChange={handleWords}>
+              <option value='defecto'>Defecto</option>
+              <option value='ascendente'>A - Z</option>
+              <option value='descendente'>Z - A</option>
+            </select>
+            <h5>Ordenar por peso</h5>
+            <select multiple onChange={handleWeight}>
+              <option value='defecto'>Defecto</option>
+              <option value='ascendente'>Ascendente</option>
+              <option value='descendente'>Descendente</option>
             </select>
           </div>
         )
       }
-      {/* {console.log(dogsFiltered)} */}
+      {/* {console.log(allDogs)} */}
       {!found && dogsFiltered.length===0 &&
         ( 
         <div key={crypto.randomUUID()}>
@@ -151,7 +178,8 @@ const Home = () => {
           </div>
         )
       }
-      {!found && dogsFiltered.length>=1 &&
+      {
+        !found && dogsFiltered.length>=1 &&
         (
           <div key={crypto.randomUUID()}>
             {
