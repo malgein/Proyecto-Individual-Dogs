@@ -106,7 +106,6 @@ const Home = () => {
       {
         !found && (
           <div className={styles.filters}>
-            <h5>Filtrar por Temperamento</h5>
             <select multiple onChange={handleFilterTemp}>
               <option value='Todos'>Todos</option>
               {allTemperaments?.map(temperaments =>  <option value={temperaments.Nombre} key={temperaments.ID}>{temperaments.Nombre}</option>)}
@@ -186,7 +185,7 @@ const Home = () => {
               dogsFiltered.map(dog =>{
                 return(
                   <div key={crypto.randomUUID()}>
-                     <Card key={dog.id || dog.ID} name={dog.name || dog.Nombre} image={dog.image || dog.Imagen} weight={dog.weight || dog.Peso} temperament={dog.temperament} id={dog.id || dog.ID}/>
+                     <Card key={dog.id || dog.ID} name={dog.name || dog.Nombre} image={dog.image || dog.Imagen} weight={dog.weight || dog.Peso} temperament={dog.temperament || dog.Temperamentos} id={dog.id || dog.ID}/>
                   </div>
                 )
               })

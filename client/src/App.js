@@ -3,7 +3,6 @@ import {Routes, Route, useLocation} from 'react-router-dom';
 // Estilos
 import styles from './App.module.css';
 //Components
-import Navbar from './components/Navbar/Navbar';
 import Home from './components/pages/Home/Home';
 import Detail from './components/pages/Detail/Detail';
 import Landing from './components/pages/Landing/Landing';
