@@ -7,7 +7,7 @@ import styles from './Card.module.css'
 
 const Card = ({image, name, weight, temperament, id}) => {
   return (
-    <Link to={`/detail/${id}`} className={styles.link}>
+    <Link to={image.id!==undefined ? `/detail/${image.id}` : `/detail/${id}`} className={styles.link}>
       <div className={styles.main}>
         <img src={image.url || image } alt={name} />
         <div>
@@ -20,5 +20,5 @@ const Card = ({image, name, weight, temperament, id}) => {
     </Link>
   )
 }
-
+//`/detail/${image.id}` || `/detail/${id}`
 export default Card
