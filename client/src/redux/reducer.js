@@ -1,9 +1,10 @@
-import { ADD_DOGS, ORDER_BY_WEIGHT, ORDER_BY_NAME, FILTER_BY_TEMPERAMENT, FILTER_BY_ORIGIN, ADD_TEMPERAMENTS} from "./actions"
+import { ADD_DOGS, ORDER_BY_WEIGHT, ORDER_BY_NAME, FILTER_BY_TEMPERAMENT, FILTER_BY_ORIGIN, ADD_TEMPERAMENTS, HIDE_SEARCH, SHOW_SEARCH} from "./actions"
 
 export const initialState={
   allDogs : [],
 	alTemperaments: [],
-	dogsFiltered: []
+	dogsFiltered: [],
+	search: true,
 }
 
 const rootReducer = (state = initialState, {type, payload}) => {
@@ -71,6 +72,14 @@ const rootReducer = (state = initialState, {type, payload}) => {
 				return{
 					...state, dogsFiltered: nameResult
 				}
+				case HIDE_SEARCH:
+				return{
+					...state, search: false
+				}
+				case SHOW_SEARCH:
+					return {
+						...state, search: true
+					}
 			default: return {...state}
     }
 }

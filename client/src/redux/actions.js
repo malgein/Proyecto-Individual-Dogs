@@ -5,6 +5,8 @@ export const ORDER_BY_NAME = 'ORDER_BY_NAME'
 export const FILTER_BY_TEMPERAMENT = 'FILTER_BY_TEMPERAMENT'
 export const FILTER_BY_ORIGIN = 'FILTER_BY_ORIGIN'
 export const ORDER_BY_WEIGHT = 'ORDER_BY_WEIGHT'
+export const HIDE_SEARCH = 'HIDE_SEARCH'
+export const SHOW_SEARCH = 'SHOW_SEARCH'
 
 export const getAllDogs = () => {
 	return async function(dispatch){
@@ -56,4 +58,20 @@ export const filterByOrigin = origin => {
 		payload: origin
 	}
 }
+
+export const hideSearch = () => {
+	return{
+		type: HIDE_SEARCH,
+		payload: null
+	}
+}
+
+export const showSearch = () => {
+	return{
+		type: SHOW_SEARCH,
+		payload: null
+	}
+}
+
+
 

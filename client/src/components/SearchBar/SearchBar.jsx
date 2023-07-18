@@ -2,10 +2,25 @@
 import React, {useState} from 'react'
 //Estilos
 import styles from './SearchBar.module.css'
+import {AiOutlineSearch} from "react-icons/ai";
+import {AiOutlineClose} from "react-icons/ai"
 
 const SearchBar = ({setFoundDogs, setFound,  setInputCleared, setSearchResults}) => {
 
   const [input, setInput] = useState('')
+
+  const [active, setActive] = useState(false)
+
+  const searchClick = () => {
+    setActive(true)
+    console.log(active)
+  }
+
+  const closeSearch = () => {
+    setActive(false)
+    setInputCleared(true)
+    console.log(active)
+  }
 
   const handleChange = e => {
     setInput(e.target.value)
@@ -32,9 +47,18 @@ const SearchBar = ({setFoundDogs, setFound,  setInputCleared, setSearchResults})
   }
 
   return (
-    <form className={styles.main} onSubmit={clickSearch}>
-      <input type='text' placeholder='Raza de perro...' onChange={handleChange} value={input}/> 
-      <button type='submit' disabled={input.length===0}>Search</button>
+    <form onSubmit={clickSearch}>
+      <div className={styles.search}>
+        <span className={styles.icon}>
+          <AiOutlineSearch onClick={searchClick} className={styles.searchBtn}/> 
+          <AiOutlineClose onClick={closeSearch} className={styles.closeBtn}/>
+        </span>
+      </div>
+      <div className={active ? styles['searchBoxActive'] : styles['searchBox']}>
+        <input type='text' className={styles.input} placeholder='Raza de perro...' onChange={handleChange} value={input}/> 
+      </div>
+      {/* <button type='submit' disabled={input.length===0}>Search
+      </button> */}
     </form>
   )
 }
