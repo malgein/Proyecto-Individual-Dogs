@@ -134,23 +134,26 @@ const Home = () => {
       {/* {console.log(allDogs)} */}
       {!found && dogsFiltered.length===0 &&
         ( 
-        <div key={crypto.randomUUID()}>
+        <div key={crypto.randomUUID()} className={styles.card}>
           {apiDogs.map((dog) => {
            return <Card key={dog.id || dog.ID} name={dog.name || dog.Nombre} image={dog.image || dog.Imagen} weight={dog.weight || dog.Peso} temperament={dog.temperament || dog.Temperamentos} id={dog.id || dog.ID}/>
           })}
-          <button
-          onClick={goToPreviousPage}
-          disabled={currentPage === 1}
-          >
-          Previous
-          </button>
-          <div>Pagina {currentPage} de  {totalPages}</div>
-          <button
-          onClick={goToNextPage}
-          disabled={currentPage === totalPages}
-          >
-          Next
-          </button>
+          
+          <div className={styles.containerPages}>
+            <button
+            onClick={goToPreviousPage}
+            disabled={currentPage === 1}
+            >
+            Previous
+            </button>
+            <div>Pagina {currentPage} de  {totalPages}</div>
+            <button
+            onClick={goToNextPage}
+            disabled={currentPage === totalPages}
+            >
+            Next
+            </button>
+          </div>
         </div>
         )
       }

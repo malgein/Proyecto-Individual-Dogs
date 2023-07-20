@@ -4,8 +4,9 @@ import React, {useState} from 'react'
 import styles from './SearchBar.module.css'
 import {AiOutlineSearch} from "react-icons/ai";
 import {AiOutlineClose} from "react-icons/ai"
+// import {AiOutlineMenu} from "react-icons/ai"
 
-const SearchBar = ({setFoundDogs, setFound,  setInputCleared, setSearchResults}) => {
+const SearchBar = ({setFoundDogs, setFound,  setInputCleared, setSearchResults, setMenuToggle, menuToggle}) => {
 
   const [input, setInput] = useState('')
 
@@ -46,13 +47,20 @@ const SearchBar = ({setFoundDogs, setFound,  setInputCleared, setSearchResults})
     }
   }
 
+  // const showMenuResponsive =() => {
+  //   setMenuToggle(true)
+  //   console.log(menuToggle)
+  // }
+
   return (
     <form onSubmit={clickSearch}>
       <div className={styles.search}>
         <span className={styles.icon}>
-          <AiOutlineSearch onClick={searchClick} className={styles.searchBtn}/> 
-          <AiOutlineClose onClick={closeSearch} className={styles.closeBtn}/>
+          {!active && <AiOutlineSearch onClick={searchClick} className={styles.searchBtn}/>}
+          {/* <AiOutlineSearch onClick={searchClick} className={styles.searchBtn}/> */}
+          {active && <AiOutlineClose onClick={closeSearch} className={styles.closeBtn}/>} 
         </span>
+        {/* <AiOutlineMenu className={styles.menuToggle} onClick={showMenuResponsive}/> */}
       </div>
       <div className={active ? styles['searchBoxActive'] : styles['searchBox']}>
         <input type='text' className={styles.input} placeholder='Raza de perro...' onChange={handleChange} value={input}/> 
