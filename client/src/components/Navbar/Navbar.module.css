@@ -23,15 +23,22 @@ header{
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 15px 15px rgba(0, 0, 0, 0.05);
+    /* background-blend-mode: color;
+    background-color: #fff; */
 }
 
-.logo{
-    color: #333;
+
+.logo img{
+    /* color: #333;
     text-decoration: none;
     font-size: 1.5em;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.1em; */
+    height: 82px;
+    width: 80px;
+    background: none;
+    border-radius: 30px;
 }
 
 

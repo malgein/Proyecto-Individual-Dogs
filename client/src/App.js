@@ -8,6 +8,7 @@ import Detail from './components/pages/Detail/Detail';
 import Landing from './components/pages/Landing/Landing';
 import Error404 from './components/pages/Error/Error404';
 import Form from './components/pages/Form/Form';
+import About from './components/pages/About/About'
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
         <Route path='/home' element={<Home />}/>
         <Route path='/detail/:id' element={<Detail />}/>
         <Route path='/form' element={<Form />}/>
+        <Route path='/about' element={<About />}/>
         <Route path='*' element={<Error404 />}/>
       </Routes>
     </div>

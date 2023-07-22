@@ -7,6 +7,7 @@ import SearchBar from '../SearchBar/SearchBar'
 import styles from './Navbar.module.css'
 import {AiOutlineMenuFold} from "react-icons/ai"
 import {AiOutlineMenuUnfold} from "react-icons/ai"
+import imageDog from './Dog-api-search.jpeg'
 
 const Navbar = ({setFoundDogs, setFound, setInputCleared, setSearchResults}) => {
 
@@ -25,7 +26,11 @@ const Navbar = ({setFoundDogs, setFound, setInputCleared, setSearchResults}) => 
 
   return (
     <header className={menuToggle ? styles.open : ''}>
-      <Link to='/' className={styles.logo}>Logo</Link>
+      <Link to='/' className={styles.logo}>
+        <div className={styles.logoContainer}>
+          <img src={imageDog} alt='Logo app'/>
+        </div>
+      </Link>
       <div className={styles.group}>
         <ul className={styles.navigation}>
           <Link to='/home'><li>Home</li></Link>

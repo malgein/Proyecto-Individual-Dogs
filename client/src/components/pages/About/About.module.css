@@ -1,0 +1,133 @@
+.sectionWhite {
+	background: #fff;
+	padding: 70px 0;
+}
+
+.row{
+    display: flex;
+}
+
+.textCenter{
+    padding-top: 20px;
+}
+
+.teamItem{
+	background: #f4e6cd;
+	text-align:center;
+	margin:20px 0;
+	padding:50px 20px 40px 20px;
+	border-radius: 8px 8px;
+	-webkit-transition: all 0.25s ease-in-out;
+	-moz-transition: all 0.25s ease-in-out;
+	-ms-transition: all 0.25s ease-in-out;
+	-o-transition: all 0.25s ease-in-out;
+	transition: all 0.25s ease-in-out;
+}
+
+.teamItem:hover{
+	background: #8e6043;
+	color: white;
+}
+
+.teamItem h3{
+	margin:20px 0 1px 0!important;
+	color:#454545;
+	font-size:18px;
+	font-weight: 700;
+	text-transform:uppercase;
+	transition: all .25s ease-in-out;
+	-moz-transition: all .25s ease-in-out;
+	-webkit-transition: all .25s ease-in-out;
+}
+
+.sectionSubtitle {
+	white-space: pre-line;
+ }
+
+.teamItem:hover h3{
+	color:#ddd;
+}
+
+.teamInfo {
+	display: block;
+	margin-bottom:0;
+}
+
+.teamInfo p{
+	color:#acacac;
+	font-style:italic;
+}
+
+.teamInfo::after {
+    background: #008aff;
+    background: -webkit-linear-gradient(135deg, #6B02FF 0%, #985BEF 100%);
+    background: -o-linear-gradient(bottom right, #6B02FF, #985BEF);
+    background: -moz-linear-gradient(bottom right, #008aff, #1ad2fd);
+    background: linear-gradient(135deg, #6B02FF 0%, #985BEF 100%);
+    display: inline-block;
+    vertical-align: middle;
+    content: "";
+    width: 50px;
+    height: 3px; 
+}
+
+.teamImg{
+	max-width: 140px;
+	padding: 6px 6px;
+    background-color: #dedede;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+}
+
+ul.teamIcon {
+	margin-top: 25px;
+}
+
+ul.teamIcon li{
+	display: inline-block;
+	margin:0 3px;
+	-webkit-transition: all 0.25s ease-in-out;
+	-moz-transition: all 0.25s ease-in-out;
+	-ms-transition: all 0.25s ease-in-out;
+	-o-transition: all 0.25s ease-in-out;
+	transition: all 0.25s ease-in-out;
+}
+
+ul.teamIcon li a{
+	margin: 0;
+	display: inline-block;
+	padding: 8px 8px;
+	width: 34px;
+	height: 34px;
+	font-size: 18px;
+	line-height: 18px;
+	background-color: #fff;
+	border-radius: 50%;
+	color:#fff;
+}
+
+ul.teamIcon li a.github{
+	background-color: #454749;
+}
+
+ul.teamIcon li a.web{
+	background-color: #09ce1d;
+}
+
+ul.teamIcon li a.linkedIn{
+	background-color: #3b5998;
+}
+
+/* ul.teamIcon li a.dribble{
+	background-color: #ea4c89;
+} */
+
+.teamIcon li a:hover{
+	color:#dedede;
+	-webkit-transition: all 0.25s ease-in-out;
+	-moz-transition: all 0.25s ease-in-out;
+	-ms-transition: all 0.25s ease-in-out;
+	-o-transition: all 0.25s ease-in-out;
+	transition: all 0.25s ease-in-out;
+}
