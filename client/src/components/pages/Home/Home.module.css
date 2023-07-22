@@ -1,6 +1,46 @@
 .filters{
     display: flex;
+    padding-top: 30px;
+    display:flex;
+    justify-content: space-around;
+    margin-top: 30px;
+    margin-bottom: 10px;
 }
+
+.filterSelect{
+    display:flex;
+    flex-direction: column;
+}
+
+.filterSelect h5{
+    margin-bottom: 0;
+}
+
+select {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 0 10px;
+    background-color: #fff;
+    color: #333;
+    width: 85%;
+  }
+  
+  select:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  option {
+    background-color: #fff;
+    color: #333;
+  }
+  
+  option:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
 
 *{
     margin: 0;

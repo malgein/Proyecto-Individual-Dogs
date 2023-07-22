@@ -1,14 +1,14 @@
-*{
+/* *{
     margin: 0;
     padding:0 ;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-}
+} */
 
 body{
-   background-color: #dee1e2;
-   min-height: 100vh;
-   overflow-x: hidden;
+   background-color: #f8e0b4;
+   /* min-height: 100vh;
+   overflow-x: hidden; */
 }
 
 header{

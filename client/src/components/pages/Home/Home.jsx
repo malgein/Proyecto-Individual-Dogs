@@ -106,28 +106,37 @@ const Home = () => {
       {
         !found && (
           <div className={styles.filters}>
-            <select multiple onChange={handleFilterTemp}>
-              <option value='Todos'>Todos</option>
-              {allTemperaments?.map(temperaments =>  <option value={temperaments.Nombre} key={temperaments.ID}>{temperaments.Nombre}</option>)}
-            </select>
-            <h5>Filtrar por Origen</h5>
-            <select multiple onChange={handleOrigin}>
-              <option value='object'>Todos</option>
-              <option value='string'>Mis perros</option>
-              <option value='number'>Perros de la API</option>
-            </select>
-            <h5>Ordenar alfabeticamente</h5>
-            <select multiple onChange={handleWords}>
-              <option value='defecto'>Defecto</option>
-              <option value='ascendente'>A - Z</option>
-              <option value='descendente'>Z - A</option>
-            </select>
-            <h5>Ordenar por peso</h5>
-            <select multiple onChange={handleWeight}>
-              <option value='defecto'>Defecto</option>
-              <option value='ascendente'>Ascendente</option>
-              <option value='descendente'>Descendente</option>
-            </select>
+            <div className={styles.filterSelect}>
+              <h5>Ordenar por temperamento</h5>
+              <select multiple onChange={handleFilterTemp}>
+                <option value='Todos'>Todos</option>
+                {allTemperaments?.map(temperaments =>  <option value={temperaments.Nombre} key={temperaments.ID}>{temperaments.Nombre}</option>)}
+              </select>
+            </div>
+            <div className={styles.filterSelect}>
+              <h5>Filtrar por Origen</h5>
+              <select multiple onChange={handleOrigin}>
+                <option value='object'>Todos</option>
+                <option value='string'>Mis perros</option>
+                <option value='number'>Perros de la API</option>
+              </select>
+            </div>
+            <div className={styles.filterSelect}>
+              <h5>Ordenar alfabeticamente</h5>
+              <select multiple onChange={handleWords}>
+                <option value='defecto'>Defecto</option>
+                <option value='ascendente'>A - Z</option>
+                <option value='descendente'>Z - A</option>
+              </select>
+            </div>
+            <div className={styles.filterSelect}>
+              <h5>Ordenar por peso</h5>
+              <select multiple onChange={handleWeight}>
+                <option value='defecto'>Defecto</option>
+                <option value='ascendente'>Ascendente</option>
+                <option value='descendente'>Descendente</option>
+              </select>
+            </div>
           </div>
         )
       }

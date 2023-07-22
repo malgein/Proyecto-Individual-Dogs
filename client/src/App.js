@@ -13,16 +13,16 @@ function App() {
 
   const location = useLocation().pathname
 
-  let previusTitle = document.title 
+  // let previusTitle = document.title 
 
-	window.addEventListener('blur', () =>{
-		previusTitle = document.title
-		document.title = 'No te vayas 😱, vuelve'
-	})
+	// window.addEventListener('blur', () =>{
+	// 	previusTitle = document.title
+	// 	document.title = 'No te vayas 😱, vuelve'
+	// })
 
-	window.addEventListener('focus', () => {
-		document.title = previusTitle
-	})
+	// window.addEventListener('focus', () => {
+	// 	document.title = previusTitle
+	// })
 
   return (
     <div className={styles.App}>

@@ -171,95 +171,72 @@ const Form = () => {
 	}
 
   return (
-    <div>
+    <div className={styles.container}>
       <Navbar />
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <h1>Form</h1>
-        <label>Nombre del perro</label>
-        <input name='name' type='text' value={newDog.name} onChange={handleChange}/>
-				{errors.name && <p>{errors.name}</p>}
-				<label>Url de la imagen</label>
-				<input type='text' name='image' value={newDog.image} onChange={handleChange}/>
-				{errors.image && <p>{errors.image}</p>}
-        <label>Altura del perro</label>
-        <h6>Altura maxima</h6>
-        <input type='number' name='maxHeight' value={newDog.maxHeight}  onChange={handleChange}/>
-				{errors.maxHeight && <p>{errors.maxHeight}</p>}
-        <h6>Altura minima</h6>
-        <input type='number' value={newDog.minHeight} name='minHeight' onChange={handleChange}/>
-				{errors.minHeight && <p>{errors.minHeight}</p>}
-				<label>Peso del perro</label>	
-        <label>Peso maximo</label>
-        <input type='number' name='maxWeight' value={newDog.maxWeight} onChange={handleChange}/>
-				{errors.maxWeight && <p>{errors.maxWeight}</p>}
-        <label>Peso minimo</label>
-        <input type='number'  name='minWeight' value={newDog.minWeight} onChange={handleChange}/>
-				{errors.minWeight && <p>{errors.minWeight}</p>}
-        <label>Años de vida</label>
-        <input type='number' value={newDog.yearsOfLife} name='yearsOfLife' onChange={handleChange}/>
-				{errors.yearsOfLife && <p>{errors.yearsOfLife}</p>}
-				{/* {console.log(allTemperaments)} */}
-				{selectedTemperaments.length===0 && <p>Debes selecionar al menos 1 temperamento</p>}
-				{allTemperaments?.map(temperament => {
-					return(
-					<div key={temperament.ID}>
-						<input
-							type="checkbox"
-							id={temperament.ID}
-							name={temperament.Nombre}
-							value={`${temperament.Nombre}_${temperament.ID}`}
-							onChange={handleTemperamentChange}
-							//checked={newDog.temperaments.includes('Playful')}
-						/>
-						<label htmlFor={temperament.Nombre}>{temperament.Nombre}</label>
-				 </div>
-					)
-				})}
-        {/* <label>Temperamentos</label> */}
-        {/* <select multiple
-          id="temperaments"
-          value={newDog.temperaments}
-          onChange={handleTemperamentChange}>
-						<option value="Curious">Curioso</option>
-						<option value="Playful">Jugeton</option>
-						<option value="Happy">Feliz</option>
-						<option value="Friendly">Amigable</option>
-					</select> */}
-				{/* <div>
-          <input
-            type="checkbox"
-            id="playful"
-            name="playful"
-            value="Playful"
-            checked={newDog.temperaments.includes('Playful')}
-            onChange={handleTemperamentChange}
-          />
-          <label htmlFor="playful">Juguetón</label>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            id="happy"
-            name="happy"
-            value="Happy"
-            checked={newDog.temperaments.includes('Happy')}
-            onChange={handleTemperamentChange}
-          />
-          <label htmlFor="happy">Feliz</label>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            id="friendly"
-            name="friendly"
-            value="Friendly"
-            checked={newDog.temperaments.includes('Friendly')}
-            onChange={handleTemperamentChange}
-          />
-          <label htmlFor="friendly">Amigable</label>
-        </div> */}
-        <button type='submit'>Crear raza de Perro</button>
-      </form>
+      <h1 className={styles.title}>Crea tu propio perro</h1>
+			<div className={styles.content}>
+				<form onSubmit={handleSubmit} className={styles.form}>
+					<div className={styles.dogDetails}>
+						<div className={styles.inputBox}>
+							<span className={styles.details}>Nombre del perro</span>
+							<input name='name' type='text' value={newDog.name} onChange={handleChange} placeholder='Introduce el nombre del perro' className={errors.name ? styles.warning : ''}/>
+							{errors.name && <p className={styles.error}>{errors.name}</p>}
+						</div>
+						<div className={styles.inputBox}>
+							<span className={styles.details}>Url de la imagen</span>
+							<input type='text' name='image' value={newDog.image} onChange={handleChange} placeholder='url de la imagen del perro' className={errors.image && styles.warning}/>
+							{errors.image && <p className={styles.error}>{errors.image}</p>}
+						</div>
+						<div className={styles.inputBox}>
+							{/* <span className={styles.details}>Altura del perro</span> */}
+							<span className={styles.details}>Altura maxima</span>
+							<input type='number' name='maxHeight' value={newDog.maxHeight}  onChange={handleChange} placeholder='Introduce la altura maxima' className={errors.maxHeight && styles.warning}/>
+							{errors.maxHeight && <p className={styles.error}>{errors.maxHeight}</p>}
+						</div>
+						<div className={styles.inputBox}>
+							<span className={styles.details}>Altura minima</span>
+							<input type='number' value={newDog.minHeight} name='minHeight' onChange={handleChange} className={errors.minHeight && styles.warning} placeholder='Ingresa la altura minima'/>
+							{errors.minHeight && <p className={styles.error}>{errors.minHeight}</p>}
+						</div>
+						<div className={styles.inputBox}>
+							{/* <span className={styles.details}>Peso del perro</span> */}
+							<span className={styles.details}>Peso maximo</span>
+							<input type='number' name='maxWeight' value={newDog.maxWeight} onChange={handleChange} className={errors.maxWeight && styles.warning} placeholder='Ingresa el peso maximo'/>
+							{errors.maxWeight && <p className={styles.error}>{errors.maxWeight}</p>}
+							<span className={styles.details}>Peso minimo</span>
+							<input type='number'  name='minWeight' value={newDog.minWeight} onChange={handleChange} className={errors.minWeight && styles.warning} placeholder='Ingresa el peso minimo'/>
+							{errors.minWeight && <p className={styles.error}>{errors.minWeight}</p>}
+						</div>
+						<div className={styles.inputBox}>
+							<span className={styles.details}>Años de vida</span>
+							<input type='number' value={newDog.yearsOfLife} name='yearsOfLife' onChange={handleChange} className={errors.yearsOfLife && styles.warning} placeholder='Ingresa los años de vida'/>
+							{errors.yearsOfLife && <p className={styles.error}>{errors.yearsOfLife}</p>}
+						</div>
+					</div>
+					<div className={styles.temperamentDetails}>
+						{/* {console.log(allTemperaments)} */}
+						{selectedTemperaments.length===0 && <p className={styles.error}>Debes selecionar al menos 1 temperamento</p>}
+						{allTemperaments?.map(temperament => {
+							return(
+							<div key={temperament.ID} className={styles.category}>
+								<input
+									type="checkbox"
+									id={temperament.ID}
+									name={temperament.Nombre}
+									value={`${temperament.Nombre}_${temperament.ID}`}
+									onChange={handleTemperamentChange}
+									//checked={newDog.temperaments.includes('Playful')}
+								/>
+								<label htmlFor={temperament.Nombre}>{temperament.Nombre}</label>
+							</div>
+							)
+						})}
+					</div>
+					<div className={styles.button}>
+						<input type='submit' value='Crear Perro' disabled={!errors}/>
+					</div>
+				</form>
+			</div>
     </div>
   )  
 }
