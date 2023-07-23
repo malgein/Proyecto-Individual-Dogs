@@ -8,11 +8,22 @@ import Sacha from './Imagen de sacha.jpeg'
 import {AiFillLinkedin} from 'react-icons/ai'
 import {AiFillGithub} from 'react-icons/ai'
 import {SiWebflow} from 'react-icons/si'
+// import Bars from 'react-loader-spinner/Bars'
+
 
 const About = () => {
   return (
     <div>
 			<Navbar />
+			{/* <Bars
+  height="80"
+  width="80"
+  color="#3e2b1d"
+  ariaLabel="bars-loading"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={true}
+/> */}
 			<section className={styles.sectionWhite}>
 				<div className={styles.container}>
 					<div className={`${styles.colMd12} ${styles.textCenter}`}>

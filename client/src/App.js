@@ -10,6 +10,7 @@ import Error404 from './components/pages/Error/Error404';
 import Form from './components/pages/Form/Form';
 import About from './components/pages/About/About'
 
+
 function App() {
 
   const location = useLocation().pathname

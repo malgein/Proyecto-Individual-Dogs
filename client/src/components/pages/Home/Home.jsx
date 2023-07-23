@@ -144,10 +144,13 @@ const Home = () => {
       {!found && dogsFiltered.length===0 &&
         ( 
         <div key={crypto.randomUUID()} className={styles.card}>
-          {apiDogs.map((dog) => {
-           return <Card key={dog.id || dog.ID} name={dog.name || dog.Nombre} image={dog.image || dog.Imagen} weight={dog.weight || dog.Peso} temperament={dog.temperament || dog.Temperamentos} id={dog.id || dog.ID}/>
-          })}
-          
+          <div className={styles.cardHome}>
+            {apiDogs.map((dog) => {
+            return (
+                <Card key={dog.id || dog.ID} name={dog.name || dog.Nombre} image={dog.image || dog.Imagen} weight={dog.weight || dog.Peso} temperament={dog.temperament || dog.Temperamentos} id={dog.id || dog.ID} />
+                ) 
+            })}
+          </div>
           <div className={styles.containerPages}>
             <button
             onClick={goToPreviousPage}
@@ -168,21 +171,22 @@ const Home = () => {
       }
       {found && dogsFiltered.length===0 &&
         (
-          <div key={crypto.randomUUID()}>
-            {//console.log(foundDogs)
-              foundDogs.length===0 ? (<h2>No se encontraron resultados para {searchResults}</h2>) :
+          <div key={crypto.randomUUID()} className={styles.card}>
+            {
+              foundDogs.length===0 ? (<h2 className={styles.resultadosInfo}>No se encontraron resultados para {searchResults}</h2>) :
               (
                 <div>
-                  <h2>Se muestran resultados de {searchResults}</h2>
-                  {
-                    foundDogs.map(dog => {
-                      return (
-                        <div  key={crypto.randomUUID()}>
-                          <Card key={dog.id || dog.ID} name={dog.name || dog.Nombre} image={dog.image || dog.Imagen} weight={dog.weight || dog.Peso} temperament={dog.temperament} id={dog.id || dog.ID}/>
-                        </div>
-                      )
-                    })
-                  }
+                  <h2 className={styles.resultadosInfo}>Se muestran resultados de {searchResults}</h2>
+                  <div  key={crypto.randomUUID()} className={styles.cardSearch}>
+                    {console.log('hola')}
+                    { 
+                      foundDogs.map(dog => {
+                        return (
+                            <Card key={dog.id || dog.ID} name={dog.name || dog.Nombre} image={dog.image || dog.Imagen} weight={dog.weight || dog.Peso} temperament={dog.temperament} id={dog.id || dog.ID}/>
+                        )
+                      })
+                    }
+                  </div>
                 </div>
               )
             }

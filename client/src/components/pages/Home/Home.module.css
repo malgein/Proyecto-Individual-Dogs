@@ -50,18 +50,65 @@ select {
 }
 
 .card{
-    display: flex;
+    /* display: flex;
     justify-content:center;
-    align-items: center;
+    align-items: center; */
     width: 100%;
-    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
     min-height: 100vh;
     background: linear-gradient(45deg, #f8e0b4, #73543a );
 }
 
+.resultadosInfo{
+  margin-top: 120px;
+  margin-bottom: -70px;
+}
+
+.cardHome{
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cardSearch{
+  
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+
 .containerPages{
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 100px 0;
+    /* min-height: 100vh;    */
+}
+
+.containerPages button{
+  position:relative;
+  display: inline-block;
+  padding: 12px 36px;
+  margin: 10px 0;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: 2px;
+  border-radius: 40px;
+  background: linear-gradient(90deg , #3e2b1d, #d4a382);
+  cursor: pointer;
+}
+
+.containerPages button:nth-child(2){
+  background: linear-gradient(90deg, #a6c3d9, #f4e6cd);
 }
 
 /* body {
