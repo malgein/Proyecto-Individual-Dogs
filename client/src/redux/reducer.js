@@ -1,4 +1,4 @@
-import { ADD_DOGS, ORDER_BY_WEIGHT, ORDER_BY_NAME, FILTER_BY_TEMPERAMENT, FILTER_BY_ORIGIN, ADD_TEMPERAMENTS, HIDE_SEARCH, SHOW_SEARCH} from "./actions"
+import { ADD_DOGS, ORDER_BY_WEIGHT, ORDER_BY_NAME, FILTER_BY_TEMPERAMENT, FILTER_BY_ORIGIN, ADD_TEMPERAMENTS, SHOW_FILTERED} from "./actions"
 
 export const initialState={
   allDogs : [],
@@ -72,13 +72,9 @@ const rootReducer = (state = initialState, {type, payload}) => {
 				return{
 					...state, dogsFiltered: nameResult
 				}
-				case HIDE_SEARCH:
-				return{
-					...state, search: false
-				}
-				case SHOW_SEARCH:
-					return {
-						...state, search: true
+				case SHOW_FILTERED:
+					return{
+						...state, allDogs: [...payload]
 					}
 			default: return {...state}
     }

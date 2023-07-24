@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import Card from '../../Card/Card'
 import Navbar from '../../Navbar/Navbar'
 //Redux
-import {getAllDogs, getTemperaments, filterByTemperament, filterByOrigin, orderByName, orderByWeight} from '../../../redux/actions.js'
+import {getAllDogs, getTemperaments, filterByTemperament, filterByOrigin, orderByName, orderByWeight, showSearched} from '../../../redux/actions.js'
 //Estilos
 import styles from './Home.module.css'
 
@@ -29,6 +29,24 @@ const Home = () => {
   const [inputCleared, setInputCleared] = useState(false)
 
   const [searchResults, setSearchResults] = useState('')
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Dividir el array foundDogs en grupos de 8 perros
+  const dogsPerPage = 8;
+  const totalGroups = Math.ceil(foundDogs.length / dogsPerPage);
+  const startIndexFound = currentIndex * dogsPerPage;
+  const dogsToShow = foundDogs.slice(startIndexFound, startIndexFound + dogsPerPage);
+
+  // Función para mostrar el siguiente grupo de perros
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, totalGroups - 1));
+  };
+
+  // Función para mostrar el grupo anterior de perros
+  const handlePrevious = () => {
+    setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+  };
 
   //Logica para pasar paginas y mostrar 8 perros por vistas
   const itemsPerPage = 8
@@ -73,11 +91,6 @@ const Home = () => {
   };
 
   const handleFilterTemp =  e => {
-    // console.log(e.target.value)
-    // console.log(allDogs)
-    // setAux(!aux)
-    // dispatch(filterByTemperament(e.target.value))
-    // classifiedDogs = [...allDogs]
     dispatch(filterByTemperament(e.target.value))
     //console.log(dogsFiltered)
   }
@@ -97,6 +110,11 @@ const Home = () => {
     // console.log(e.target.value)
     dispatch(orderByWeight(e.target.value))
     // console.log(dogsFiltered)
+  }
+
+  const saveSearched = dogs => {
+    dispatch(showSearched(dogs))
+    console.log(allDogs)
   }
 
   return (
@@ -178,14 +196,22 @@ const Home = () => {
                 <div>
                   <h2 className={styles.resultadosInfo}>Se muestran resultados de {searchResults}</h2>
                   <div  key={crypto.randomUUID()} className={styles.cardSearch}>
-                    {console.log('hola')}
                     { 
-                      foundDogs.map(dog => {
+                      dogsToShow.map(dog => {
                         return (
                             <Card key={dog.id || dog.ID} name={dog.name || dog.Nombre} image={dog.image || dog.Imagen} weight={dog.weight || dog.Peso} temperament={dog.temperament} id={dog.id || dog.ID}/>
                         )
                       })
                     }
+                  <div className={styles.containerPages}>
+            <button onClick={handlePrevious} disabled={currentIndex === 0}>
+              Anterior
+            </button>
+            <div>Pagina {currentIndex} de  {totalGroups}</div>
+            <button onClick={handleNext} disabled={currentIndex === totalGroups - 1}>
+              Siguiente
+            </button>
+          </div>
                   </div>
                 </div>
               )
