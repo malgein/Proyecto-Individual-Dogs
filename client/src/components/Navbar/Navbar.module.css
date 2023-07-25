@@ -9,9 +9,11 @@ body{
    background-color: #f8e0b4;
    /* min-height: 100vh;
    overflow-x: hidden; */
+   
 }
 
 header{
+    overflow: hidden;
     position: absolute;
     top: 0;
     left: 0;
@@ -39,6 +41,7 @@ header{
     width: 80px;
     background: none;
     border-radius: 30px;
+    
 }
 
 
@@ -48,6 +51,7 @@ header ul{
     position: relative;
     display: flex;
     gap: 30px;
+    
 }
 
 header ul li {
@@ -87,6 +91,7 @@ header ul li:hover::before{
     /* background-color: gray; */
     display: flex;
     align-items: center;
+    
 }
 
 @media (max-width: 800px){

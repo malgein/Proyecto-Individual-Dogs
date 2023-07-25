@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import Card from '../../Card/Card'
 import Navbar from '../../Navbar/Navbar'
 //Redux
-import {getAllDogs, getTemperaments, filterByTemperament, filterByOrigin, orderByName, orderByWeight, showSearched} from '../../../redux/actions.js'
+import {getAllDogs, getTemperaments, filterByTemperament, filterByOrigin, orderByName, orderByWeight} from '../../../redux/actions.js'
 //Estilos
 import styles from './Home.module.css'
 
@@ -30,22 +30,25 @@ const Home = () => {
 
   const [searchResults, setSearchResults] = useState('')
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(1);
+
+  const [indexFilter , setIndexFilter] = useState(1)
 
   // Dividir el array foundDogs en grupos de 8 perros
   const dogsPerPage = 8;
   const totalGroups = Math.ceil(foundDogs.length / dogsPerPage);
-  const startIndexFound = currentIndex * dogsPerPage;
-  const dogsToShow = foundDogs.slice(startIndexFound, startIndexFound + dogsPerPage);
+  const startIndexFound = (currentIndex - 1) * dogsPerPage
+  const endIndexFound = startIndexFound + dogsPerPage
+  const dogsToShow = foundDogs.slice(startIndexFound, endIndexFound);
 
   // Función para mostrar el siguiente grupo de perros
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, totalGroups - 1));
+    setCurrentIndex((prevIndex) => prevIndex + 1);
   };
 
   // Función para mostrar el grupo anterior de perros
   const handlePrevious = () => {
-    setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    setCurrentIndex((prevIndex) => prevIndex - 1);
   };
 
   //Logica para pasar paginas y mostrar 8 perros por vistas
@@ -59,6 +62,29 @@ const Home = () => {
   //let classifiedDogs = [...allDogs]
   const apiDogs = allDogs.slice(startIndex, endIndex);
 
+  
+  
+  const filterPerPage = 8
+
+  const filterTotalPages = Math.ceil(dogsFiltered.length / filterPerPage)
+
+  const startIndexFilter = (indexFilter - 1) * filterPerPage;
+
+  const endIndexFilter = startIndexFilter + filterPerPage
+  //let classifiedDogs = [...allDogs]
+  const resultDogsFiltered = dogsFiltered.slice(startIndexFilter, endIndexFilter);
+
+  const filterPreviousPage = () => {
+    setIndexFilter((prevPage) => prevPage - 1);
+    
+  };
+
+  const filterNextPage = () => {
+    setIndexFilter((prevPage) => prevPage + 1);
+    
+  };
+  
+  
   // const myDogs = allDogs.filter(dog => typeof dog.ID === 'string')
 
   //Trae al todos los perros de la BD y de la API
@@ -92,6 +118,7 @@ const Home = () => {
 
   const handleFilterTemp =  e => {
     dispatch(filterByTemperament(e.target.value))
+    setIndexFilter(1)
     //console.log(dogsFiltered)
   }
 
@@ -110,11 +137,6 @@ const Home = () => {
     // console.log(e.target.value)
     dispatch(orderByWeight(e.target.value))
     // console.log(dogsFiltered)
-  }
-
-  const saveSearched = dogs => {
-    dispatch(showSearched(dogs))
-    console.log(allDogs)
   }
 
   return (
@@ -189,30 +211,30 @@ const Home = () => {
       }
       {found && dogsFiltered.length===0 &&
         (
-          <div key={crypto.randomUUID()} className={styles.card}>
+          <div key={crypto.randomUUID()} >
             {
               foundDogs.length===0 ? (<h2 className={styles.resultadosInfo}>No se encontraron resultados para {searchResults}</h2>) :
               (
-                <div>
+                <div className={styles.card}>
                   <h2 className={styles.resultadosInfo}>Se muestran resultados de {searchResults}</h2>
-                  <div  key={crypto.randomUUID()} className={styles.cardSearch}>
+                  <div  key={crypto.randomUUID()} className={styles.cardHome}>
                     { 
                       dogsToShow.map(dog => {
                         return (
-                            <Card key={dog.id || dog.ID} name={dog.name || dog.Nombre} image={dog.image || dog.Imagen} weight={dog.weight || dog.Peso} temperament={dog.temperament} id={dog.id || dog.ID}/>
+                          <Card key={dog.id || dog.ID} name={dog.name || dog.Nombre} image={dog.image || dog.Imagen} weight={dog.weight || dog.Peso} temperament={dog.temperament} id={dog.id || dog.ID}/>
                         )
                       })
                     }
-                  <div className={styles.containerPages}>
-            <button onClick={handlePrevious} disabled={currentIndex === 0}>
-              Anterior
-            </button>
-            <div>Pagina {currentIndex} de  {totalGroups}</div>
-            <button onClick={handleNext} disabled={currentIndex === totalGroups - 1}>
-              Siguiente
-            </button>
-          </div>
                   </div>
+                    <div className={styles.containerPages}>
+                      <button onClick={handlePrevious} disabled={currentIndex === 1}>
+                        Anterior
+                      </button>
+                      <div>Pagina {currentIndex} de  {totalGroups}</div>
+                      <button onClick={handleNext} disabled={currentIndex === totalGroups }>
+                        Siguiente
+                      </button>
+                    </div>
                 </div>
               )
             }
@@ -222,16 +244,25 @@ const Home = () => {
       {
         !found && dogsFiltered.length>=1 &&
         (
-          <div key={crypto.randomUUID()}>
-            {
-              dogsFiltered.map(dog =>{
-                return(
-                  <div key={crypto.randomUUID()}>
-                     <Card key={dog.id || dog.ID} name={dog.name || dog.Nombre} image={dog.image || dog.Imagen} weight={dog.weight || dog.Peso} temperament={dog.temperament || dog.Temperamentos} id={dog.id || dog.ID}/>
-                  </div>
-                )
-              })
-            }
+          <div key={crypto.randomUUID()} className={styles.card}>
+            <div key={crypto.randomUUID()} className={styles.cardHome}>
+              {
+                resultDogsFiltered.map(dog =>{
+                  return(
+                    <Card key={dog.id || dog.ID} name={dog.name || dog.Nombre} image={dog.image || dog.Imagen} weight={dog.weight || dog.Peso} temperament={dog.temperament || dog.Temperamentos} id={dog.id || dog.ID}/>
+                  )
+                })
+              }
+            </div> 
+            <div className={styles.containerPages}>
+                      <button onClick={filterPreviousPage} disabled={indexFilter === 1}>
+                        Anterior
+                      </button>
+                      <div>Pagina {indexFilter} de  {filterTotalPages}</div>
+                      <button onClick={filterNextPage} disabled={indexFilter === filterTotalPages }>
+                        Siguiente
+                      </button>
+                    </div>
           </div>
         )
       } 

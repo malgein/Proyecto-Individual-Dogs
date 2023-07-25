@@ -4,9 +4,9 @@ import React, {useState} from 'react'
 import styles from './SearchBar.module.css'
 import {AiOutlineSearch} from "react-icons/ai";
 import {AiOutlineClose} from "react-icons/ai"
-// import {AiOutlineMenu} from "react-icons/ai"
 
-const SearchBar = ({setFoundDogs, setFound,  setInputCleared, setSearchResults, setMenuToggle, menuToggle}) => {
+
+const SearchBar = ({setFoundDogs, setFound,  setInputCleared, setSearchResults}) => {
 
   const [input, setInput] = useState('')
 
@@ -20,6 +20,7 @@ const SearchBar = ({setFoundDogs, setFound,  setInputCleared, setSearchResults, 
   const closeSearch = () => {
     setActive(false)
     setInputCleared(true)
+    setInput('')
     console.log(active)
   }
 
@@ -46,11 +47,6 @@ const SearchBar = ({setFoundDogs, setFound,  setInputCleared, setSearchResults, 
       // setInput('')
     }
   }
-
-  // const showMenuResponsive =() => {
-  //   setMenuToggle(true)
-  //   console.log(menuToggle)
-  // }
 
   return (
     <form onSubmit={clickSearch}>
